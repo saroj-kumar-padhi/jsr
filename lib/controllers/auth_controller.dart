@@ -8,11 +8,7 @@ import 'package:jsr_tiffin/screens/home.dart';
 import 'package:jsr_tiffin/screens/otp.dart';
 import 'package:logger/logger.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-    // Optional clientId
-    // clientId: 'your-client_id.apps.googleusercontent.com',
-    // scopes: scopes,
-    );
+GoogleSignIn _googleSignIn = GoogleSignIn();
 
 class AuthController extends GetxController {
   TextEditingController phoneAuthController = TextEditingController();
@@ -21,6 +17,14 @@ class AuthController extends GetxController {
   Logger logger = Logger();
 
   RxBool isLoading = false.obs;
+
+  Future<bool> checkSignInStatus() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
+    // Check if the user is signed in
+    return user != null;
+  }
 
   Future<void> phoneAuth() async {
     isLoading(true);

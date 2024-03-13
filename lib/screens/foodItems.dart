@@ -4,7 +4,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jsr_tiffin/controllers/basic_food.dart';
+import 'package:jsr_tiffin/controllers/basic_food_controller.dart';
 
 class BasicFoodItems extends StatelessWidget {
   const BasicFoodItems({Key? key});
@@ -118,7 +118,7 @@ class BasicFoodItems extends StatelessWidget {
                   Expanded(
                     child: Obx(
                       () => ListView.builder(
-                        itemCount: controller.SelectedItems.length,
+                        itemCount: controller.selectedItems.length,
                         itemBuilder: (context, index) {
                           return Container(
                             width: MediaQuery.of(context).size.width * 0.94,
@@ -137,7 +137,7 @@ class BasicFoodItems extends StatelessWidget {
                                       height: 100,
                                       width: 100,
                                       child: Image.network(
-                                          controller.SelectedItems[index]
+                                          controller.selectedItems[index]
                                               ['foodImage'],
                                           fit: BoxFit.cover),
                                     ),
@@ -154,7 +154,7 @@ class BasicFoodItems extends StatelessWidget {
                                           padding:
                                               EdgeInsets.fromLTRB(10, 10, 0, 0),
                                           child: Text(
-                                              controller.SelectedItems[index]
+                                              controller.selectedItems[index]
                                                   ['foodName'],
                                               style:
                                                   GoogleFonts.robotoCondensed(
@@ -214,7 +214,9 @@ class BasicFoodItems extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.sendFoodItems();
+                        },
                         child: const Text(
                           "Submit",
                           style: TextStyle(color: Colors.white),

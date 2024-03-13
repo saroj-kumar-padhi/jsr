@@ -2,32 +2,39 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jsr_tiffin/firebase_options.dart';
+import 'package:jsr_tiffin/controllers/auth_controller.dart';
+import 'package:jsr_tiffin/screens/home.dart'; // Import the LogIn screen
+import 'package:jsr_tiffin/screens/phone.dart';
 import 'package:jsr_tiffin/screens/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate(
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+    appleProvider: AppleProvider.appAttest,
     androidProvider: AndroidProvider.debug,
   );
-  runApp(const MyApp());
+  final AuthController authController = Get.put(AuthController());
+  bool isSignedIn = await authController.checkSignInStatus();
+
+  runApp(MyApp(
+      homeScreen: isSignedIn
+          ? HomePage()
+          : LogIn())); // Pass LogIn screen if not signed in
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget? homeScreen;
 
-  // This widget is the root of your application.
+  const MyApp({Key? key, required this.homeScreen}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: Splash(),
-      // home: BasicDetails(),
-      // home: BasicFoodItems(),
+      title: 'Your App Title',
+      home: homeScreen ?? Splash(), // Show Splash screen if homeScreen is null
     );
   }
 }

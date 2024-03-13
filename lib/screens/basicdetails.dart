@@ -90,51 +90,67 @@ class BasicDetails extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
-                        child: Heading("First Name"),
+                        child: heading("First Name"),
                       ),
                       textFields("Enter Your First Name",
                           basicController.firstNameController),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 10, 0, 0),
-                        child: Heading("Last Name"),
+                        child: heading("Last Name"),
                       ),
                       textFields('Enter Your Last Name',
                           basicController.lastNameController),
                       //email
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 10, 0, 0),
-                        child: Heading("Email"),
+                        child: heading("Email"),
                       ),
                       textFields('Enter Your Email', basicController.email),
 
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 10, 0, 0),
-                        child: Heading("Mobile No"),
+                        child: heading("Mobile No"),
                       ),
                       textFields('+91', basicController.phoneText),
 
                       //Button
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 30),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(310, 50),
-                              minimumSize: const Size(60, 20),
-                              backgroundColor: Colors.red.withOpacity(0.8),
-                              padding: const EdgeInsets.all(16.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            onPressed: () {
-                              Get.to(BasicFoodItems());
-                            },
-                            child: const Text(
-                              "Proceed",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
+                          padding: const EdgeInsets.only(top: 30),
+                          child: Obx(() => ElevatedButton.icon(
+                                onPressed: basicController.isLoading.value
+                                    ? null
+                                    : () async {
+                                        await basicController.putDatabase();
+                                        Get.to(() => const BasicFoodItems());
+                                      },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(310, 50),
+                                  minimumSize: const Size(60, 20),
+                                  backgroundColor: Colors.red.withOpacity(0.8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  padding: const EdgeInsets.all(16.0),
+                                ),
+                                icon: basicController.isLoading.value
+                                    ? Container(
+                                        width: 20,
+                                        height: 20,
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: const Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3,
+                                          ),
+                                        ),
+                                      )
+                                    : const Icon(Icons.feedback),
+                                label: const Text(
+                                  'Proceed',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ))),
 
                       SizedBox(
                         height: size.height * 0.03,
@@ -169,7 +185,7 @@ class BasicDetails extends StatelessWidget {
     );
   }
 
-  Align Heading(heading) {
+  Align heading(heading) {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Text(
