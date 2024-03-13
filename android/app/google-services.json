@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "570322647130",
+    "project_id": "jsrservices-9af06",
+    "storage_bucket": "jsrservices-9af06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570322647130:android:6fd2c0ffff873d81384063",
+        "android_client_info": {
+          "package_name": "com.example.jsr_tiffin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGP9qkAHOkwRi5divDoIkOdFaTMUmNz9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
