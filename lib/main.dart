@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
 import 'package:jsr_tiffin/screens/home.dart'; // Import the LogIn screen
 import 'package:jsr_tiffin/screens/phone.dart';
+import 'package:jsr_tiffin/screens/profile.dart';
 import 'package:jsr_tiffin/screens/splash.dart';
 
 void main() async {
@@ -20,8 +21,8 @@ void main() async {
 
   runApp(MyApp(
       homeScreen: isSignedIn
-          ? HomePage()
-          : LogIn())); // Pass LogIn screen if not signed in
+          ? const HomePage()
+          : const LogIn())); // Pass LogIn screen if not signed in
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +35,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Your App Title',
-      home: homeScreen ?? Splash(), // Show Splash screen if homeScreen is null
+      // home: homeScreen,
+      home: Profile(),
+
+      // Show Splash screen if homeScreen is null
     );
   }
 }
