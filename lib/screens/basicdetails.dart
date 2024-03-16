@@ -121,6 +121,7 @@ class BasicDetails extends StatelessWidget {
                                 onPressed: basicController.isLoading.value
                                     ? null
                                     : () async {
+                                        FocusScope.of(context).unfocus();
                                         await basicController.putDatabase();
                                         Get.to(() => const BasicFoodItems());
                                       },

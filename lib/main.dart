@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
 import 'package:jsr_tiffin/screens/home.dart'; // Import the LogIn screen
 import 'package:jsr_tiffin/screens/phone.dart';
-import 'package:jsr_tiffin/screens/profile.dart';
-import 'package:jsr_tiffin/screens/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +14,7 @@ void main() async {
     appleProvider: AppleProvider.appAttest,
     androidProvider: AndroidProvider.debug,
   );
+
   final AuthController authController = Get.put(AuthController());
   bool isSignedIn = await authController.checkSignInStatus();
 
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Your App Title',
       // home: homeScreen,
-      home: Profile(),
+      home: LogIn(),
 
       // Show Splash screen if homeScreen is null
     );

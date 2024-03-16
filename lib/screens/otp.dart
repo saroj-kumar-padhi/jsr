@@ -129,17 +129,18 @@ class OTPPage extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 40),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          fixedSize: Size(270, 50),
-                                          minimumSize: Size(60, 20),
+                                          fixedSize: const Size(270, 50),
+                                          minimumSize: const Size(60, 20),
                                           backgroundColor:
                                               Colors.red.withOpacity(0.8),
-                                          padding: EdgeInsets.all(16.0),
+                                          padding: const EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
                                         ),
                                         onPressed: () {
+                                          FocusScope.of(context).unfocus();
                                           authController.verifyPhoneNumber(
                                               verficationCode: verficationCode);
                                         },

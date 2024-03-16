@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jsr_tiffin/controllers/auth_controller.dart';
+import 'package:jsr_tiffin/screens/profile.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({
@@ -8,6 +11,7 @@ class SideDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.put(AuthController());
     return Drawer(
       child: ListView(
         children: [
@@ -34,29 +38,31 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.person,
+              color: Colors.blue,
             ),
             title: Text(
               'Profile',
               style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 69, 70, 83)),
+                  color: Colors.grey[850]),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Get.to(() => const Profile());
             },
           ),
           const Divider(),
           ListTile(
             leading: const Icon(
               Icons.book,
+              color: Colors.blue,
             ),
             title: Text(
               'My Orders',
               style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 69, 70, 83)),
+                  color: Colors.grey[850]),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -66,13 +72,14 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.payment,
+              color: Colors.blue,
             ),
             title: Text(
               'Payments',
               style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 69, 70, 83)),
+                  color: Colors.grey[850]),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -82,13 +89,14 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.support_agent,
+              color: Colors.blue,
             ),
             title: Text(
               'Support',
               style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 69, 70, 83)),
+                  color: Colors.grey[850]),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -98,16 +106,17 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.logout,
+              color: Colors.blue,
             ),
             title: Text(
               'Logout',
               style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: const Color.fromARGB(255, 69, 70, 83)),
+                  color: Colors.grey[850]),
             ),
             onTap: () {
-              Navigator.pop(context);
+              authController.logOut();
             },
           ),
         ],

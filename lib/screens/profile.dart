@@ -7,16 +7,16 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 152, 187, 248),
+      backgroundColor: Color(0xffdbdbdb),
       body: Column(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 40),
             child: Align(
               alignment: Alignment.topCenter,
               child: CircleAvatar(
                 radius: 55,
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: Colors.blue,
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
@@ -25,14 +25,26 @@ class Profile extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            "suraj Kumar",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.radioCanada(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: const Color.fromARGB(255, 69, 70, 83)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "suraj Kumar",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.radioCanada(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24,
+                    color: const Color.fromARGB(255, 69, 70, 83)),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              const Icon(
+                Icons.verified,
+                color: Colors.blue,
+              )
+            ],
           ),
           Text(
             "surajpadhi01@gmail.com",
@@ -65,17 +77,52 @@ class Profile extends StatelessWidget {
             ),
           ),
           ListTile(
+            title: Text("Your's Profile",
+                style: GoogleFonts.lato(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: const Color.fromARGB(255, 69, 70, 83),
+                  fontStyle: FontStyle.italic, // Make the text italic
+                )),
+            leading: const Icon(
+              Icons.person,
+              color: Colors.blue,
+            ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.grey,
+                )),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Divider(
+              color: Colors.grey,
+            ),
+          ),
+          ListTile(
             title: Text("Your's Orders",
                 style: GoogleFonts.lato(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 69, 70, 83),
                   fontStyle: FontStyle.italic, // Make the text italic
                 )),
             leading: const Icon(
               Icons.history,
-              color: Colors.amber,
+              color: Colors.blue,
             ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.grey,
+                )),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(
@@ -90,13 +137,20 @@ class Profile extends StatelessWidget {
                 style: GoogleFonts.radioCanada(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 69, 70, 83),
                   fontStyle: FontStyle.italic, // Make the text italic
                 )),
             leading: const Icon(
               Icons.payment,
-              color: Colors.amber,
+              color: Colors.blue,
             ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.grey,
+                )),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(
@@ -111,13 +165,20 @@ class Profile extends StatelessWidget {
                 style: GoogleFonts.radioCanada(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 69, 70, 83),
                   fontStyle: FontStyle.italic, // Make the text italic
                 )),
             leading: const Icon(
               Icons.money_off_csred_outlined,
-              color: Colors.amber,
+              color: Colors.blue,
             ),
+            trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.grey,
+                )),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(
@@ -132,12 +193,12 @@ class Profile extends StatelessWidget {
                 style: GoogleFonts.radioCanada(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 69, 70, 83),
                   fontStyle: FontStyle.italic, // Make the text italic
                 )),
             leading: const Icon(
               Icons.logout,
-              color: Colors.amber,
+              color: Colors.blue,
             ),
           )
         ],

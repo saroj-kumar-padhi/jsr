@@ -30,7 +30,7 @@ class Splash extends StatelessWidget {
             backgroundColor: Colors.pink.withOpacity(0.3),
             showLoader: true,
             loadingText: const Text("Loading..."),
-            navigator: LogIn(),
+            navigator: const LogIn(),
             durationInSeconds: 5,
           ),
         ),

@@ -117,6 +117,18 @@ class LogIn extends StatelessWidget {
                                         width: size.width - 90,
                                         child: TextField(
                                           keyboardType: TextInputType.number,
+                                          onChanged: (value) {
+                                            if (value == '') {
+                                              authController
+                                                      .errorMessagePhoneNumber
+                                                      .value =
+                                                  'Please enter a vaild Phone Number';
+                                            } else {
+                                              authController
+                                                  .errorMessagePhoneNumber
+                                                  .value = '';
+                                            }
+                                          },
                                           controller: authController
                                               .phoneAuthController,
                                           decoration: InputDecoration(
@@ -136,6 +148,17 @@ class LogIn extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    Obx(() {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 20),
+                                        child: Text(
+                                          authController
+                                              .errorMessagePhoneNumber.value,
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      );
+                                    }),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 40),
                                       child: ElevatedButton(
@@ -151,6 +174,7 @@ class LogIn extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
+                                          FocusScope.of(context).unfocus();
                                           authController.phoneAuth();
                                         },
                                         child: const Text(

@@ -34,8 +34,7 @@ class BasicController extends GetxController {
       await firestore
           .collection('kitchen')
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('userDetails')
-          .add(userData.toMap());
+          .set(userData.toMap());
       isLoading(false);
     } catch (e) {
       logger.d(e);

@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/basic_food_controller.dart';
+import 'package:jsr_tiffin/screens/home.dart';
 
 class BasicFoodItems extends StatelessWidget {
   const BasicFoodItems({Key? key});
@@ -216,13 +217,14 @@ class BasicFoodItems extends StatelessWidget {
                         ),
                         onPressed: () {
                           controller.sendFoodItems();
+                          Get.offAll(() => HomePage());
                         },
                         child: const Text(
                           "Submit",
                           style: TextStyle(color: Colors.white),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   )
                 ],
