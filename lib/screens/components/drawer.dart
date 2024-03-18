@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
-import 'package:jsr_tiffin/screens/profile.dart';
+import 'package:jsr_tiffin/screens/drawer/payments.dart';
+import 'package:jsr_tiffin/screens/drawer/profile.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({
@@ -82,7 +83,7 @@ class SideDrawer extends StatelessWidget {
                   color: Colors.grey[850]),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Get.to(() => const MyPayments());
             },
           ),
           const Divider(),

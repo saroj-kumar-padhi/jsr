@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jsr_tiffin/screens/foodItems.dart';
+import 'package:jsr_tiffin/screens/stater/foodItems.dart';
 
-import '../controllers/basic_controller.dart';
+import '../../controllers/basic_controller.dart';
 
 class BasicDetails extends StatelessWidget {
   const BasicDetails({super.key});
@@ -121,9 +122,23 @@ class BasicDetails extends StatelessWidget {
                                 onPressed: basicController.isLoading.value
                                     ? null
                                     : () async {
-                                        FocusScope.of(context).unfocus();
-                                        await basicController.putDatabase();
-                                        Get.to(() => const BasicFoodItems());
+                                        if (basicController.firstNameController
+                                                .value.text.isEmpty ||
+                                            basicController.lastNameController
+                                                .value.text.isEmpty ||
+                                            basicController
+                                                .email.value.text.isEmpty ||
+                                            basicController
+                                                .phoneText.value.text.isEmpty ||
+                                            basicController.Filex.isEmpty) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "Please pick a profile pic and fill all fields");
+                                        } else {
+                                          FocusScope.of(context).unfocus();
+                                          await basicController.putDatabase();
+                                          Get.to(() => const BasicFoodItems());
+                                        }
                                       },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(310, 50),

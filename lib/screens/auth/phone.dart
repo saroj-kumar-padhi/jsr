@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
+import 'package:logger/logger.dart';
 
 class LogIn extends StatelessWidget {
   const LogIn({
@@ -174,8 +176,17 @@ class LogIn extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
-                                          FocusScope.of(context).unfocus();
-                                          authController.phoneAuth();
+                                          String phoneNumber = authController
+                                              .phoneAuthController.value.text;
+                                          if (phoneNumber.isEmpty ||
+                                              phoneNumber.length != 10) {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Please enter a valid number");
+                                          } else {
+                                            FocusScope.of(context).unfocus();
+                                            authController.phoneAuth();
+                                          }
                                         },
                                         child: const Text(
                                           "Send OTP",

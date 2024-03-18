@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
+import 'package:logger/logger.dart';
 
 class OTPPage extends StatelessWidget {
   final String verficationCode;
@@ -140,9 +142,24 @@ class OTPPage extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
-                                          FocusScope.of(context).unfocus();
-                                          authController.verifyPhoneNumber(
-                                              verficationCode: verficationCode);
+                                          if (authController.otpController.value
+                                                  .text.length !=
+                                              6) {
+                                            Logger logger = Logger();
+                                            logger.d(authController
+                                                .otpController
+                                                .value
+                                                .text
+                                                .length);
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Please enter six digit otp ");
+                                          } else {
+                                            FocusScope.of(context).unfocus();
+                                            authController.verifyPhoneNumber(
+                                                verficationCode:
+                                                    verficationCode);
+                                          }
                                         },
                                         child: const Text(
                                           "Verify",

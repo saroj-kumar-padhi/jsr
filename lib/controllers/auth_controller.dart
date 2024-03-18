@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:jsr_tiffin/screens/basicdetails.dart';
+import 'package:jsr_tiffin/screens/stater/basicdetails.dart';
 import 'package:jsr_tiffin/screens/home.dart';
-import 'package:jsr_tiffin/screens/otp.dart';
-import 'package:jsr_tiffin/screens/phone.dart';
+import 'package:jsr_tiffin/screens/auth/otp.dart';
+import 'package:jsr_tiffin/screens/auth/phone.dart';
 import 'package:logger/logger.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn();

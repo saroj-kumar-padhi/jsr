@@ -48,9 +48,7 @@ class BasicFoodItemsController extends GetxController {
     } else {
       // Item already exists, you can handle this case if needed
       Fluttertoast.showToast(
-          webShowClose: true,
-          backgroundColor: Colors.amber,
-          msg: "Food item exist already");
+          webShowClose: true, msg: "Food item exist already");
     }
   }
 

@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jsr_tiffin/models/userData.dart';
 import 'package:logger/logger.dart';
@@ -17,10 +16,23 @@ class BasicController extends GetxController {
   final TextEditingController email = TextEditingController();
   final TextEditingController phoneText = TextEditingController();
   RxBool isLoading = false.obs;
+  Rx<UserData> userData = UserData(
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneText: '',
+    profilePic: '',
+  ).obs;
   Logger logger = Logger();
   final ImagePicker picker = ImagePicker();
   RxString imageLink = ''.obs;
   RxString Filex = ''.obs;
+
+  @override
+  void onInit() {
+    getBasicData();
+    super.onInit();
+  }
 
   Future<void> putDatabase() async {
     try {
@@ -40,6 +52,16 @@ class BasicController extends GetxController {
       logger.d(e);
       isLoading(false);
     }
+  }
+
+  Future<void> getBasicData() async {
+    DocumentSnapshot documentSnapshot = await firestore
+        .collection('kitchen')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    userData.value = UserData.fromSnapshot(documentSnapshot);
+    logger.d(userData.value);
   }
 
   Future<void> PickImage() async {

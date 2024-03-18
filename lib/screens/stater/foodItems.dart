@@ -2,25 +2,28 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/basic_food_controller.dart';
 import 'package:jsr_tiffin/screens/home.dart';
 
 class BasicFoodItems extends StatelessWidget {
-  const BasicFoodItems({Key? key});
+  const BasicFoodItems({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final BasicFoodItemsController controller =
         Get.put(BasicFoodItemsController());
-    return SafeArea(child: Obx(() {
-      return FadeInUp(
-        duration: const Duration(seconds: 2),
-        child: Stack(
-          children: [
-            Scaffold(
-              body: Column(
+    return Obx(() {
+      return Stack(
+        children: [
+          Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
                 children: [
                   Padding(
                       padding: const EdgeInsets.symmetric(
@@ -30,7 +33,7 @@ class BasicFoodItems extends StatelessWidget {
                           displayText: '%',
                           borderRadius: BorderRadius.circular(20),
                           animatedDuration: const Duration(seconds: 1),
-                          progressColor: Color.fromARGB(255, 34, 117, 56),
+                          progressColor: const Color.fromARGB(255, 34, 117, 56),
                           backgroundColor:
                               Colors.greenAccent[200] ?? Colors.black,
                           currentValue: 100)),
@@ -121,81 +124,89 @@ class BasicFoodItems extends StatelessWidget {
                       () => ListView.builder(
                         itemCount: controller.selectedItems.length,
                         itemBuilder: (context, index) {
-                          return Container(
+                          return SizedBox(
                             width: MediaQuery.of(context).size.width * 0.94,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0),
-                              ),
-                              color: Colors.white70,
-                              elevation: 10,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: Image.network(
-                                          controller.selectedItems[index]
-                                              ['foodImage'],
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(10, 10, 0, 0),
-                                          child: Text(
-                                              controller.selectedItems[index]
-                                                  ['foodName'],
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                        ),
+                            child: Dismissible(
+                              key: UniqueKey(),
+                              direction: DismissDirection.horizontal,
+                              onDismissed: (direction) {
+                                controller.selectedItems.removeAt(index);
+                              },
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                ),
+                                color: Colors.white70,
+                                elevation: 10,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Image.network(
+                                            controller.selectedItems[index]
+                                                ['foodImage'],
+                                            fit: BoxFit.cover),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.5,
-                                          child: const Text(
-                                            '100% Australian Angus grain-fed beef with cheese and pickles.  Served with fries.',
-                                            style: TextStyle(
-                                              fontSize: 12,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 10, 0, 0),
+                                            child: Text(
+                                                controller.selectedItems[index]
+                                                    ['foodName'],
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w500)),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            child: const Text(
+                                              '100% Australian Angus grain-fed beef with cheese and pickles.  Served with fries.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 40, 0, 0),
-                                        child: Text(
-                                          '\$ 24.00',
-                                          style: TextStyle(
-                                            fontSize: 14,
+                                      ],
+                                    ),
+                                    const Column(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 40, 0, 0),
+                                          child: Text(
+                                            '\$ 24.00',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -216,8 +227,12 @@ class BasicFoodItems extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          controller.sendFoodItems();
-                          Get.offAll(() => HomePage());
+                          if (controller.selectedItems.isEmpty) {
+                            Fluttertoast.showToast(msg: "Please pick a item");
+                          } else {
+                            controller.sendFoodItems();
+                            Get.offAll(() => const HomePage());
+                          }
                         },
                         child: const Text(
                           "Submit",
@@ -230,23 +245,23 @@ class BasicFoodItems extends StatelessWidget {
                 ],
               ),
             ),
-            Obx(() {
-              return controller.isLoading.isTrue
-                  ? Positioned.fill(
-                      child: Container(
-                        color: Colors.black.withOpacity(0.5),
-                        child: const Center(
-                          child: SpinKitDualRing(
-                            color: Colors.cyan,
-                          ),
+          ),
+          Obx(() {
+            return controller.isLoading.isTrue
+                ? Positioned.fill(
+                    child: Container(
+                      color: Colors.black.withOpacity(0.5),
+                      child: const Center(
+                        child: SpinKitDualRing(
+                          color: Colors.cyan,
                         ),
                       ),
-                    )
-                  : const SizedBox();
-            }),
-          ],
-        ),
+                    ),
+                  )
+                : const SizedBox();
+          }),
+        ],
       );
-    }));
+    });
   }
 }
