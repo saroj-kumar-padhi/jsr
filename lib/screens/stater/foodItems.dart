@@ -231,7 +231,7 @@ class BasicFoodItems extends StatelessWidget {
                             Fluttertoast.showToast(msg: "Please pick a item");
                           } else {
                             controller.sendFoodItems();
-                            Get.offAll(() => const HomePage());
+                            Get.offAll(() => HomePage());
                           }
                         },
                         child: const Text(

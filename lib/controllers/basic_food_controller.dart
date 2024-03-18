@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -9,7 +8,8 @@ class BasicFoodItemsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getBasicData();
+
+    getFoodItems();
   }
 
   RxList<RxMap<String, dynamic>> foodItems = <RxMap<String, dynamic>>[].obs;
@@ -63,6 +63,27 @@ class BasicFoodItemsController extends GetxController {
             .add(element);
       }
       logger.d("All selected items sent to Firestore");
+    } catch (e) {
+      logger.d("Error sending selected items to Firestore: $e");
+    }
+  }
+
+  Future<void> getFoodItems() async {
+    final fireStore = FirebaseFirestore.instance;
+    try {
+      for (final element in selectedItems) {
+        final QuerySnapshot querySnapshot = await fireStore
+            .collection('kitchen')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('selectedFoods')
+            .get();
+
+        // Now you can iterate through the documents in the query snapshot
+        querySnapshot.docs.forEach((DocumentSnapshot document) {
+          // Access document data using document.data()
+          logger.d(document.data());
+        });
+      }
     } catch (e) {
       logger.d("Error sending selected items to Firestore: $e");
     }

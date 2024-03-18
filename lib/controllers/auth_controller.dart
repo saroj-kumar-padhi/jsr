@@ -85,7 +85,7 @@ class AuthController extends GetxController {
 
       if (userDoc.exists) {
         // User document exists, navigate to home page
-        Get.offAll(() => const HomePage());
+        Get.offAll(() => HomePage());
       } else {
         // User document does not exist, navigate to basic details page
         Get.offAll(() => const BasicDetails());

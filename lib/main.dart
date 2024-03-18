@@ -23,7 +23,7 @@ void main() async {
 
   runApp(MyApp(
       homeScreen: isSignedIn
-          ? const HomePage()
+          ? HomePage()
           : const LogIn())); // Pass LogIn screen if not signed in
 }
 

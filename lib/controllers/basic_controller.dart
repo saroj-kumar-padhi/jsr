@@ -17,7 +17,7 @@ class BasicController extends GetxController {
   final TextEditingController phoneText = TextEditingController();
   RxBool isLoading = false.obs;
   Rx<UserData> userData = UserData(
-    firstName: '',
+    firstName: 'suraj',
     lastName: '',
     email: '',
     phoneText: '',
@@ -30,7 +30,6 @@ class BasicController extends GetxController {
 
   @override
   void onInit() {
-    getBasicData();
     super.onInit();
   }
 
@@ -54,14 +53,14 @@ class BasicController extends GetxController {
     }
   }
 
-  Future<void> getBasicData() async {
+  Future<UserData> getBasicData() async {
     DocumentSnapshot documentSnapshot = await firestore
         .collection('kitchen')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     userData.value = UserData.fromSnapshot(documentSnapshot);
-    logger.d(userData.value);
+    return userData.value;
   }
 
   Future<void> PickImage() async {
