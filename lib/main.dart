@@ -3,9 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
-import 'package:jsr_tiffin/screens/drawer/payments.dart';
-import 'package:jsr_tiffin/screens/stater/basicdetails.dart';
-import 'package:jsr_tiffin/screens/stater/foodItems.dart';
 import 'package:jsr_tiffin/screens/home.dart'; // Import the LogIn screen
 import 'package:jsr_tiffin/screens/auth/phone.dart';
 
@@ -38,9 +35,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Your App Title',
       home: homeScreen,
-      // home: MyPayments(),
-
-      // Show Splash screen if homeScreen is null
     );
   }
 }

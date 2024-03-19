@@ -1,17 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jsr_tiffin/controllers/basic_controller.dart';
+import 'package:jsr_tiffin/screens/drawer/edit_profile.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    BasicController basicController = Get.put(BasicController());
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40),
             child: Align(
               alignment: Alignment.topCenter,
               child: CircleAvatar(
@@ -19,8 +24,8 @@ class Profile extends StatelessWidget {
                 backgroundColor: Colors.blue,
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"),
+                  backgroundImage: CachedNetworkImageProvider(
+                      basicController.userData.value.profilePic),
                 ),
               ),
             ),
@@ -29,7 +34,8 @@ class Profile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "suraj Kumar",
+                basicController.userData.value.firstName +
+                    basicController.userData.value.lastName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.radioCanada(
@@ -47,7 +53,7 @@ class Profile extends StatelessWidget {
             ],
           ),
           Text(
-            "surajpadhi01@gmail.com",
+            basicController.userData.value.email,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.radioCanada(
@@ -58,7 +64,7 @@ class Profile extends StatelessWidget {
             ),
           ),
           Text(
-            "6280644889",
+            basicController.userData.value.phoneText,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.radioCanada(
@@ -89,7 +95,9 @@ class Profile extends StatelessWidget {
               color: Colors.blue,
             ),
             trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => const EditProfile());
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios,
                   size: 20,

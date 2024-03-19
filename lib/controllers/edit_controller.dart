@@ -6,33 +6,34 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jsr_tiffin/controllers/basic_controller.dart';
 import 'package:jsr_tiffin/models/userData.dart';
-import 'package:logger/logger.dart';
 
-class BasicController extends GetxController {
+class EditController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController phoneText = TextEditingController();
+  BasicController basicController = Get.put(BasicController());
+  late final TextEditingController firstNameController;
+  late final TextEditingController lastNameController;
+  late final TextEditingController email;
+  late final TextEditingController phoneText;
   RxBool isLoading = false.obs;
-  Rx<UserData> userData = UserData(
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneText: '',
-    profilePic: '',
-  ).obs;
-  Logger logger = Logger();
-  final ImagePicker picker = ImagePicker();
   RxString imageLink = ''.obs;
   RxString Filex = ''.obs;
+  final ImagePicker picker = ImagePicker();
+  @override
+  void onInit() {
+    imageLink.value = basicController.userData.value.profilePic;
+    firstNameController =
+        TextEditingController(text: basicController.userData.value.firstName);
+    lastNameController =
+        TextEditingController(text: basicController.userData.value.lastName);
+    email = TextEditingController(text: basicController.userData.value.email);
+    phoneText =
+        TextEditingController(text: basicController.userData.value.phoneText);
+    // TODO: implement onInit
 
-  // @override
-  // void onInit() async {
-  //   userData.value = await getBasicData();
-  //   super.onInit();
-  // }
+    super.onInit();
+  }
 
   Future<void> putDatabase() async {
     try {
@@ -49,19 +50,8 @@ class BasicController extends GetxController {
           .set(userData.toMap());
       isLoading(false);
     } catch (e) {
-      logger.d(e);
       isLoading(false);
     }
-  }
-
-  Future<UserData> getBasicData() async {
-    DocumentSnapshot documentSnapshot = await firestore
-        .collection('kitchen')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    userData.value = UserData.fromSnapshot(documentSnapshot);
-    return userData.value;
   }
 
   Future<void> PickImage() async {

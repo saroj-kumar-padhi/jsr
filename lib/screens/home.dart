@@ -2,13 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/constants.dart';
 import 'package:jsr_tiffin/controllers/basic_controller.dart';
 import 'package:jsr_tiffin/models/userData.dart';
 import 'package:jsr_tiffin/screens/components/drawer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:jsr_tiffin/screens/maps.dart/google.map.dart';
 
 import '../controllers/basic_food_controller.dart';
 
@@ -26,8 +27,8 @@ class HomePage extends StatelessWidget {
         future: basicController.getBasicData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: const Center(
+            return const Scaffold(
+              body: Center(
                 child: CircularProgressIndicator(),
               ),
             );
@@ -55,9 +56,12 @@ class HomePage extends StatelessWidget {
                     backgroundColor: Colors.grey[200],
                     actions: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            basicController.userData.value.profilePic),
-                      ),
+                          backgroundImage: CachedNetworkImageProvider(
+                              basicController.userData.value.profilePic)
+
+                          // NetworkImage(
+                          //     basicController.userData.value.profilePic),
+                          ),
                       SizedBox(
                         width: size.width * 0.05,
                       )
@@ -107,13 +111,19 @@ class HomePage extends StatelessWidget {
                                       children: [
                                         CircleAvatar(
                                             radius: 50,
-                                            backgroundImage: NetworkImage(
-                                                Constants.menu[index])),
+                                            backgroundImage:
+                                                CachedNetworkImageProvider(
+                                                    basicFoodItemsController
+                                                            .fetchedFoodItems
+                                                            .value[index]
+                                                        ['foodImage'])),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 15),
                                           child: Text(
-                                            Constants.itemsList[index],
+                                            basicFoodItemsController
+                                                .fetchedFoodItems
+                                                .value[index]['foodName'],
                                             style: GoogleFonts.lato(
                                               color: Colors.brown[800],
                                               textStyle: Theme.of(context)
@@ -130,7 +140,12 @@ class HomePage extends StatelessWidget {
                                   }),
                             ),
                             heading(context, "Track your order with a click!"),
-                            Image.asset("assests/images/tackOrder.png"),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(() => GoogleMapPage());
+                                },
+                                child: Image.asset(
+                                    "assests/images/tackOrder.png")),
                           ],
                         ),
                       ),

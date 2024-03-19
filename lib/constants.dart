@@ -15,14 +15,4 @@ class Constants {
     "https://th.bing.com/th/id/OIP.n5kTYovUzLXXmy_FH0XVpgHaE3?w=3840&h=2526&rs=1&pid=ImgDetMain"
         "https://images.pexels.com/photos/1860208/pexels-photo-1860208.jpeg?cs=srgb&dl=cooked-food-1860208.jpg&fm=jpg",
   ];
-
-  static List<String> itemsList = [
-    "Grilled Chicken",
-    "Chicken Curry",
-    "Chicken Alfredo Pasta",
-    "Chicken Caesar Salad",
-    "Chicken Quesadillas",
-    "Chicken Shawarma",
-    "Chicken Pot Pie"
-  ];
 }

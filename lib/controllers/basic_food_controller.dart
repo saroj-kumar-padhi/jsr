@@ -14,6 +14,8 @@ class BasicFoodItemsController extends GetxController {
 
   RxList<RxMap<String, dynamic>> foodItems = <RxMap<String, dynamic>>[].obs;
   RxList<RxMap<String, dynamic>> selectedItems = <RxMap<String, dynamic>>[].obs;
+  RxList<RxMap<String, dynamic>> fetchedFoodItems =
+      <RxMap<String, dynamic>>[].obs;
   RxBool isLoading = false.obs;
   CollectionReference collection =
       FirebaseFirestore.instance.collection('admin');
@@ -69,21 +71,18 @@ class BasicFoodItemsController extends GetxController {
   }
 
   Future<void> getFoodItems() async {
+    fetchedFoodItems.clear();
     final fireStore = FirebaseFirestore.instance;
     try {
-      for (final element in selectedItems) {
-        final QuerySnapshot querySnapshot = await fireStore
-            .collection('kitchen')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('selectedFoods')
-            .get();
+      final QuerySnapshot querySnapshot =
+          await fireStore.collection('admin').get();
 
-        // Now you can iterate through the documents in the query snapshot
-        querySnapshot.docs.forEach((DocumentSnapshot document) {
-          // Access document data using document.data()
-          logger.d(document.data());
-        });
-      }
+      // // Now you can iterate through the documents in the query snapshot
+      querySnapshot.docs.forEach((DocumentSnapshot document) {
+        var data = document.data() as Map<String, dynamic>;
+        // Access document data using document.data()
+        fetchedFoodItems.add(data.obs);
+      });
     } catch (e) {
       logger.d("Error sending selected items to Firestore: $e");
     }

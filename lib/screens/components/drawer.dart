@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jsr_tiffin/controllers/auth_controller.dart';
+import 'package:jsr_tiffin/controllers/basic_controller.dart';
 import 'package:jsr_tiffin/screens/drawer/payments.dart';
 import 'package:jsr_tiffin/screens/drawer/profile.dart';
 
@@ -13,29 +15,23 @@ class SideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.put(AuthController());
+    BasicController basicController = Get.put(BasicController());
     return Drawer(
       child: ListView(
         children: [
           DrawerHeader(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assests/images/background.jpg"),
-                      fit: BoxFit.cover),
-                  color: Colors.amber),
-              child: CircleAvatar(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assests/images/background.jpg"),
+                    fit: BoxFit.cover),
+                color: Colors.amber),
+            child: CircleAvatar(
                 // Adjust the radius as needed
                 backgroundColor: Colors
                     .transparent, // Make the avatar background transparent
-                child: ClipOval(
-                  child: Image.network(
-                    "https://st.depositphotos.com/1518767/4293/i/450/depositphotos_42930411-stock-photo-concentrated-male-chef-garnishing-food.jpg",
-                    width: 100, // Adjust the width and height as needed
-                    height: 100,
-                    fit: BoxFit
-                        .cover, // Ensure the image covers the circular area
-                  ),
-                ),
-              )),
+                backgroundImage: CachedNetworkImageProvider(
+                    basicController.userData.value.profilePic)),
+          ),
           ListTile(
             leading: const Icon(
               Icons.person,
